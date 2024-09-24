@@ -12,5 +12,5 @@ jobs:
     - name: install depsendencies
       run: npm ci
     - name: Build lambda
-      run: npm build
+      run: npm run build
       
