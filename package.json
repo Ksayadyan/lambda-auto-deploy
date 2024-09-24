@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node ./scripts/build.js"
+    "build": "node ./scripts/build.js",
+    "postbuild": "cd dist && zip -r index.zip bundle.js*",
+    "deploy:production": "aws lambda create-function --function-name auto-deployed --runtime \"nodejs21.x\" --role arn:aws:iam::123456789012:role/lambda-ex --zip-file \"fileb://dist/index.zip\" --handler index.handler"
   },
   "author": "Karen Sayadyan",
   "license": "ISC",
