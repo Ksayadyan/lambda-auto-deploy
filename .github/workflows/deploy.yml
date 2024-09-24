@@ -18,6 +18,7 @@ jobs:
     - name: Install aws-cli
       run: sudo snap install aws-cli --classic
     - name: Deploy Production
+      id: deployproduction
       run: npm run deploy:production
       continue-on-error: true
       env:
@@ -26,7 +27,7 @@ jobs:
         AWS_DEFAULT_REGION: us-east-1
         AWS_REGION: us-east-1
     - name: Update code of deployed function
-      if: failure()
+      if: failure() && steps.deployproduction.outcome == 'failure'
       run: npm run deploy:production:update
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
