@@ -23,12 +23,20 @@ jobs:
       run: npm run postbuild
     - name: Install aws-cli
       run: sudo snap install aws-cli --classic
+    - uses: actions/upload-artifact@master
+      with:
+        name: build-file
+        path: ./dist/index.zip
   Deploy:
     needs: Build
     runs-on: [ubuntu-latest]
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
+    - uses: actions/download-artifact@master
+      with:
+        name: build-file
+        path: ./dist/index.zip
     - name: Deploy Production
       id: deployproduction
       run: npm run deploy:production
@@ -41,6 +49,10 @@ jobs:
     needs: Build
     runs-on: [ubuntu-latest]
     steps:
+    - uses: actions/download-artifact@master
+      with:
+        name: build-file
+        path: ./dist/index.zip
     - name: Update code of deployed function
       if: failure()
       run: npm run deploy:production:update
