@@ -20,14 +20,13 @@ jobs:
     - name: Deploy Production
       id: deployproduction
       run: npm run deploy:production
-      continue-on-error: true
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: us-east-1
         AWS_REGION: us-east-1
     - name: Update code of deployed function
-      if: failure() && steps.deployproduction.outcome == 'failure'
+      if: failure()
       run: npm run deploy:production:update
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
