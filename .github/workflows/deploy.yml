@@ -32,8 +32,8 @@ jobs:
         AWS_DEFAULT_REGION: us-east-1
         AWS_REGION: us-east-1
   Update:
-    steps:
     runs-on: [ubuntu-latest]
+    steps:
     - name: Update code of deployed function
       if: failure()
       run: npm run deploy:production:update
