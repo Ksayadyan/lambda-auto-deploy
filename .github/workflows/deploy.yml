@@ -12,6 +12,7 @@ jobs:
     - name: install depsendencies
       run: npm ci
   Build:
+    runs-on: [ubuntu-latest]
     steps:
     - name: Build lambda
       run: npm run build
@@ -20,6 +21,7 @@ jobs:
     - name: Install aws-cli
       run: sudo snap install aws-cli --classic
   Deploy:
+    runs-on: [ubuntu-latest]
     steps:
     - name: Deploy Production
       id: deployproduction
@@ -31,6 +33,7 @@ jobs:
         AWS_REGION: us-east-1
   Update:
     steps:
+    runs-on: [ubuntu-latest]
     - name: Update code of deployed function
       if: failure()
       run: npm run deploy:production:update
