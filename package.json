@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node ./scripts/build.js",
     "postbuild": "cd dist && zip -r index.zip bundle.js*",
-    "deploy:production": "aws lambda create-function --function-name auto-deployed --runtime \"nodejs20.x\" --role arn:aws:iam::084828590737:role/production-deployment-role --zip-file \"fileb://dist/index.zip\" --handler index.handler"
+    "deploy:production": "aws lambda create-function --function-name auto-deployed --runtime \"nodejs20.x\" --role arn:aws:iam::084828590737:role/production-deployment-role --zip-file \"fileb://dist/index.zip\" --handler index.handler",
+    "deploy:production:update": "aws lambda update-function-code --function-name auto-deployed --zip-file \"fileb://dist/index.zip\""
   },
   "author": "Karen Sayadyan",
   "license": "ISC",
