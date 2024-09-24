@@ -4,19 +4,23 @@ on:
     branches:
       - main
 jobs:
-  auto-deploy-lambda:
+  Depencency install:
     runs-on: [ubuntu-latest]
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
     - name: install depsendencies
       run: npm ci
+  Build:
+    steps:
     - name: Build lambda
       run: npm run build
     - name: Zip lambda function
       run: npm run postbuild
     - name: Install aws-cli
       run: sudo snap install aws-cli --classic
+  Deploy:
+    steps:
     - name: Deploy Production
       id: deployproduction
       run: npm run deploy:production
@@ -25,6 +29,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: us-east-1
         AWS_REGION: us-east-1
+  Update:
+    steps:
     - name: Update code of deployed function
       if: failure()
       run: npm run deploy:production:update
