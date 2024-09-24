@@ -17,6 +17,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
+    - name: install depsendencies
+      run: npm ci
     - name: Build lambda
       run: npm run build
     - name: Zip lambda function
