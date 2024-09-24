@@ -16,7 +16,7 @@ jobs:
     - name: Zip lambda function
       run: npm run postbuild
     - name: Install aws-cli
-      run: snap install aws-cli --classic
+      run: sudo snap install aws-cli --classic
     - name: Deploy Production
       run: npm run deploy:production
       env:
